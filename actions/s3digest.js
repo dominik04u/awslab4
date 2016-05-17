@@ -1,5 +1,6 @@
 var AWS = require("aws-sdk");
 var helpers = require("../helpers");
+var simpleDb = require("./simpleDb");
 
 AWS.config.loadFromPath('./config.json');
 
@@ -23,7 +24,21 @@ var task =  function(request, callback){
 			helpers.calculateMultiDigest(doc, 
 		algorithms, 
 		function(err, digests) {
-			callback(null, digests.join("<br>"));	
+			callback(null, digests.join("<br>"));
+ simpleDb.createDomain(function(){
+			
+		    var AttributesPut = [ 
+				 {		
+					 Name: 'MD5', /* required */
+					 Value: 'TEST' /* required */
+				 },
+			 ];			
+			 simpleDb.putAttributes('Plik1', AttributesPut, function(){
+			   
+			   	 
+			    });
+			 });		
+			simpleDb.getFromDb('Plik1');			
 		}, 
 		loopCount);
 			
