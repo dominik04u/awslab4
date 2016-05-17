@@ -3,7 +3,8 @@
 					 {"x-amz-meta-name": "adamski dominik"},
 					 {"x-amz-meta-computer": "localhost"},
     				 {"bucket": "adamski-lab4"}, 
-    				 {"success_action_redirect": "http://localhost:8080/s3digest"},   
+					 {"acl": "private"},
+    				 {"success_action_redirect": "http://localhost:8080/s3digest"},  
     				 ["content-length-range", 0, 1048576]
     				]   
 }
