@@ -2,7 +2,7 @@ var AWS = require("aws-sdk");
 AWS.config.loadFromPath('./config.json');
 
 var simpledb = new AWS.SimpleDB();
-var domainName = 'adamski.dominik';
+var domainName = 'AdamskiDominik';
 
 var createDomain = function(callback){
 var params = {
@@ -29,6 +29,19 @@ simpledb.getAttributes(params, function(err, data) {
 });
 }
 
+var selectFromDb = function(callback){
+var params = {
+  SelectExpression: 'select * from AdamskiDominik', /* required */
+};
+simpledb.select(params, function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else { 
+		console.log(data);    
+		callback(data);
+	} // successful response
+});
+}
+
 var putAttributes = function(itemName, attributes, callback)
 {
 var params = {
@@ -46,6 +59,14 @@ simpledb.putAttributes(params, function(err, data) {
 });
 }
 
+var task =  function(request, callback){
+	selectFromDb(function(data){
+		callback(null,data);
+		});
+}
+
+exports.action=task;
 exports.getFromDb = getFromDb;
 exports.createDomain = createDomain;
 exports.putAttributes = putAttributes;
+exports.selectFromDb = selectFromDb;
