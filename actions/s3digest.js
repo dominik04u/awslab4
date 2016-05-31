@@ -15,35 +15,30 @@ var task =  function(request, callback){
 
 	//callback(null, "Dodano do bucket: " + bucket + " " + "za pomoca klucza: " + key);
 
-	s3.getObject(params, function(err, data) {
-		if(err) {callback(err); return;}
-		var doc = data.Body;
-		var algorithms=['md5','sha1','sha256','sha512'];
-		var loopCount=1;
-
-			helpers.calculateMultiDigest(doc, 
+s3.getObject(params, function(err, data) {
+	var algorithms = ['md5','sha1','sha256', 'sha512'];
+	var loopCount = 1;
+	var doc = data.Body;
+	
+	
+	helpers.calculateMultiDigest(doc, 
 		algorithms, 
 		function(err, digests) {
-			callback(null, digests.join("<br>"));
- simpleDb.createDomain(function(){
+			callback(null, digests.join("<br>"));				
+			// simpleDb.createDomain(function(){ });	
 			
-		    var AttributesPut = [ 
-				 {		
-					 Name: 'MD5', /* required */
-					 Value: 'TEST' /* required */
-				 },
-			 ];			
-			 simpleDb.putAttributes('Plik1', AttributesPut, function(){
-			   
-			   	 
-			    });
-			 });		
-			simpleDb.getFromDb('Plik1');			
-		}, 
-		loopCount);
+		    var AttributesPut = [ ];
 			
-	});
-
+			for(var i; i < algorithms.length; i++){
+				AttributesPut.push({Name:algorithms[i], Value:digest[i]});
+			}
 		
+			simpleDb.putAttributes('File', AttributesPut, function(){
+			   			simpleDb.getFromDb('File');				   	 
+			   });		
+		}, 
+		loopCount);   // successful response
+});
 }
+
 exports.action = task
