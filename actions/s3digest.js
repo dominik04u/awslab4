@@ -4,22 +4,21 @@ var simpleDb = require("./simpleDb");
 
 AWS.config.loadFromPath('./config.json');
 
-var task =  function(request, callback){
-		
-		var params ={
-		Bucket: request.query.bucket,
-		Key: request.query.key
-		}
-		var s3=new AWS.S3();
+var task = function(request, callback){
+	var params = {
+  Bucket: request.query.bucket,
+  Key: request.query.key
+};
+			
 
+AWS.config.loadFromPath('./config.json');
 
-	//callback(null, "Dodano do bucket: " + bucket + " " + "za pomoca klucza: " + key);
+var s3 = new AWS.S3(); 
 
 s3.getObject(params, function(err, data) {
 	var algorithms = ['md5','sha1','sha256', 'sha512'];
 	var loopCount = 1;
 	var doc = data.Body;
-	
 	
 	helpers.calculateMultiDigest(doc, 
 		algorithms, 
@@ -33,8 +32,8 @@ s3.getObject(params, function(err, data) {
 				AttributesPut.push({Name:algorithms[i], Value:digest[i]});
 			}
 		
-			simpleDb.putAttributes('File', AttributesPut, function(){
-			   			simpleDb.getFromDb('File');				   	 
+			simpleDb.putAttributes('Plik1', AttributesPut, function(){
+			   			simpleDb.getFromDb('Plik1');				   	 
 			   });		
 		}, 
 		loopCount);   // successful response

@@ -30,43 +30,47 @@ simpledb.getAttributes(params, function(err, data) {
 }
 
 var selectFromDb = function(callback){
+console.log("jestem");
 var params = {
-  SelectExpression: 'select * from AdamskiDominik', /* required */
+  SelectExpression: "select * from MHufnagielDomain"
 };
 simpledb.select(params, function(err, data) {
-  if (err) console.log(err, err.stack); // an error occurred
-  else { 
-		console.log(data);    
-		callback(data);
-	} // successful response
+	  if (err) console.log(err, err.stack); // an error occurred
+	  else{
+	  callback(data);
+     // successful response
+		}
 });
 }
 
 var putAttributes = function(itemName, attributes, callback)
 {
-var params = {
-  Attributes: attributes,
-  DomainName: domainName, /* required */
-  ItemName: itemName, /* required */
-};
-simpledb.putAttributes(params, function(err, data) {
-  if (err) console.log(err, err.stack); // an error occurred
-  else     
-  {
-	console.log('Zapisano do SimpleDB');           // successful response
-	callback();
-  }
-});
+	var params = {
+	  Attributes: attributes,
+	  DomainName: domainName, /* required */
+	  ItemName: itemName, /* required */
+	};
+	simpledb.putAttributes(params, function(err, data) {
+		  if (err) console.log(err, err.stack); // an error occurred
+		  else     
+		  {
+			console.log('Zapisano do SimpleDB');           // successful response
+			callback();
+		  }
+	});
 }
 
-var task =  function(request, callback){
+
+var task = function(request, callback){
 	selectFromDb(function(data){
-		callback(null,data);
-		});
-}
+	callback(null,data);
+	});
+};
 
-exports.action=task;
+
+
+exports.action = task;
 exports.getFromDb = getFromDb;
 exports.createDomain = createDomain;
 exports.putAttributes = putAttributes;
-exports.selectFromDb = selectFromDb;
+exports.selectFromDb =selectFromDb;
