@@ -4,7 +4,7 @@
 					 {"x-amz-meta-computer": "localhost"},
     				 {"bucket": "adamski-lab4"}, 
 					 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8080/s3digest"},  
+    				 {"success_action_redirect": "http://localhost:8085/s3digest"},  
     				 ["content-length-range", 0, 1048576]
     				]   
 }
