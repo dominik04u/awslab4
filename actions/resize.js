@@ -12,7 +12,7 @@ var task = function (request, callback) {
 		var params = {
 			MessageBody : JSON.stringify({
 				file : fileList,
-				resizeValue : resizeValue
+				scaleValue : resizeValue
 			}),
 			QueueURL : 'https://sqs.us-west-2.amazonaws.com/983680736795/AdamskiSQS'
 		};
@@ -20,13 +20,16 @@ var task = function (request, callback) {
 			if (err) {
 				console.log(err, err.stact);
 			} else {
-				callback(null, INDEX_TEMPLATE, params : {
-					fields : null,
-					bucket : null
-				});
+				callback(null, {
+					template : INDEX_TEMPLATE,
+					params : {
+						fields : null,
+						bucket : null
+					}
+				} );
 			}
 		});
-	};
+	}
 }
 
 exports.action = task;

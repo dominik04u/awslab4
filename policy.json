@@ -1,10 +1,11 @@
 {	"expiration" : {"day":1},
-	"conditions": [ ["starts-with", "$key", "adamski.dominik/"],
-					 {"x-amz-meta-name": "adamski dominik"},
+	"conditions": [ 
+	["starts-with", "$key", "adamski.dominik/"],
+					 {"x-amz-meta-name": "Adamski Dominik"},
 					 {"x-amz-meta-computer": "localhost"},
     				 {"bucket": "adamski-lab4"}, 
 					 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8085/s3digest"},  
+    				 {"success_action_redirect": "http://localhost:8085/succesPage"},  
     				 ["content-length-range", 0, 1048576]
     				]   
 }
