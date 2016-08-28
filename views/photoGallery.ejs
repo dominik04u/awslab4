@@ -13,17 +13,17 @@
 		});
 		
 		function onSubmit(e) {
-			var srcs = [];
+			var sources = [];
 			$.each($(".selected > img"), function(index, value){ 
 				var tmpSplit = $(value).attr("src").split('/');
-				srcs.push(tmpSplit[tmpSplit.length -2] + '/' + tmpSplit[tmpSplit.length - 1]);
+				sources.push(tmpSplit[tmpSplit.length -2] + '/' + tmpSplit[tmpSplit.length - 1]);
 			});
         
-            if (srcs.length === 0) {
+            if (sources.length === 0) {
                 e.preventDefault();
                 return;
             }
-            document.getElementById('fileNamesInput').value = JSON.stringify(srcs);
+            document.getElementById('fileNames').value = JSON.stringify(sources);
         }
 		</script>
     <title>Send photo</title>
@@ -32,13 +32,13 @@
 <h3>Galeria obrazów:</h3>    
 
 <div class="container">
-		<form method="post" action="/rotate" onsubmit="onSubmit(event)">
+		<form method="post" action="/resize" onsubmit="onSubmit(event)">
 		<div class="col-md-3">
 			<input type="number" class="form-control" name="resizeValue" min="-100" value="0" />
 		</div>
 		<div class="col-md-3">
 				<input type="hidden" name="files" id="fileNames" />
-				<button type="submit">Resize</button>
+				<button type="submit">Scale</button>
 		</div>     
 		</form>     
 </div>

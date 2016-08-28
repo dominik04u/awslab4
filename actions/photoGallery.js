@@ -10,13 +10,10 @@ var params = {
 		Bucket : bucketName
 	};
 var task = function (request, callback) {
-	
-
 	s3.listObjects(params, function (err, data) {
 		if (err) {
 			console.log(err, err.stact);
 		} else {
-		data.Contents.shift();
 			callback(null, {
 				template : INDEX_TEMPLATE,
 				params : {

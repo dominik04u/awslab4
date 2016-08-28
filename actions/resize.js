@@ -6,12 +6,12 @@ var sqs = new AWS.SQS();
 
 var task = function (request, callback) {
 	var resizeValue = parseInt(request.body.resizeValue);
-	var fileList = JSON.parse(request.body.fileList);
+	var fileList = JSON.parse(request.body.files);
 
 	for (var i = 0; i < fileList.length; i++) {
 		var params = {
 			MessageBody : JSON.stringify({
-				file : fileList,
+				file : fileList[i],
 				scaleValue : resizeValue
 			}),
 			QueueURL : 'https://sqs.us-west-2.amazonaws.com/983680736795/AdamskiSQS'
