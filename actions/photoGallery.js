@@ -1,6 +1,5 @@
 var AWS = require("aws-sdk");
 AWS.config.loadFromPath('./config.json');
-
 var simpleDB = require("./simpleDB");
 var INDEX_TEMPLATE = "photoGallery.ejs";
 var s3 = new AWS.S3();
@@ -14,6 +13,7 @@ var task = function (request, callback) {
 		if (err) {
 			console.log(err, err.stact);
 		} else {
+		data.Contents.shift();
 			callback(null, {
 				template : INDEX_TEMPLATE,
 				params : {
