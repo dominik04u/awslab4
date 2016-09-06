@@ -5,16 +5,19 @@ var INDEX_TEMPLATE = "sentPhoto.ejs";
 var sqs = new AWS.SQS();
 
 var task = function (request, callback) {
-	var resizeValue = parseInt(request.body.resizeValue);
+	var resizeValueX = parseInt(request.body.resizeValueX);
+	var resizeValueY = parseInt(request.body.resizeValueY);
 	var fileList = JSON.parse(request.body.files);
+	console.log("resizeX: " + resizeValueX + " resizeY: " + resizeValueY);
 
 	for (var i = 0; i < fileList.length; i++) {
 		var params = {
 			MessageBody : JSON.stringify({
 				file : fileList[i],
-				scaleValue : resizeValue
+				resizeValueX : resizeValueX,
+				resizeValueY : resizeValueY
 			}),
-			QueueURL : 'https://sqs.us-west-2.amazonaws.com/983680736795/AdamskiSQS'
+			QueueUrl : 'https://sqs.us-west-2.amazonaws.com/983680736795/AdamskiSQS'
 		};
 		sqs.sendMessage(params, function (err, data) {
 			if (err) {
@@ -26,7 +29,7 @@ var task = function (request, callback) {
 						fields : null,
 						bucket : null
 					}
-				} );
+				});
 			}
 		});
 	}

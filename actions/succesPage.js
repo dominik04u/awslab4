@@ -16,7 +16,7 @@ var task = function (request, callback) {
 	});
 
 	simpleDB.putAttributes(params.key, attributes, function () {
-		simpleDB.getFromDB(params.key);
+		simpleDB.getFromDb(params.key);
 	});
 
 	callback(null, {

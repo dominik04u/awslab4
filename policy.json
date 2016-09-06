@@ -1,11 +1,11 @@
 {	"expiration" : {"day":1},
 	"conditions": [ 
 	["starts-with", "$key", "adamski.dominik/"],
+	    				 {"bucket": "adamski-lab4"}, 
 					 {"x-amz-meta-name": "Adamski Dominik"},
-					 {"x-amz-meta-computer": "localhost"},
-    				 {"bucket": "adamski-lab4"}, 
+					 {"x-amz-meta-computer": "http://ec2-52-88-174-17.us-west-2.compute.amazonaws.com:8086/"},
 					 {"acl": "private"},
-    				 {"success_action_redirect": "http://localhost:8085/succesPage"},  
+    				 {"success_action_redirect": "http://ec2-52-88-174-17.us-west-2.compute.amazonaws.com:8086/succesPage"},  
     				 ["content-length-range", 0, 1048576]
     				]   
 }
